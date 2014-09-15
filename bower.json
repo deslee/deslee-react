@@ -1,0 +1,20 @@
+{
+  "name": "deslee-react",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "foundation": "~5.4.3"
+  },
+  "dependencies": {
+    "react-router": "~0.7.0",
+    "reactfire": "~0.2.0",
+    "showdown": "~0.3.1"
+  }
+}

@@ -1,0 +1,215 @@
+@import 'semantic/elements/header';
+@import 'semantic/elements/button';
+@import 'semantic/elements/image';
+@import 'semantic/elements/icon';
+@import 'semantic/elements/input';
+@import 'semantic/collections/menu';
+@import 'semantic/elements/divider';
+@import 'semantic/collections/grid';
+@import 'semantic/collections/form';
+@import 'semantic/modules/sidebar';
+@import 'helpers';
+
+@darkred: #A33D47;
+
+@-webkit-keyframes backgroundmove {
+  from {
+    background-position-x: 0%;
+    background-position-y: 100%;
+  }
+
+  to {
+    background-position-x: 100%;
+    background-position-y: 0%;
+  }
+}
+
+@-moz-keyframes backgroundmove {
+  from {
+    background-position-x: 0%;
+    background-position-y: 100%;
+  }
+
+  to {
+    background-position-x: 100%;
+    background-position-y: 0%;
+  }
+}
+
+@keyframes backgroundmove {
+  from {
+    background-position-x: 0%;
+    background-position-y: 100%;
+  }
+
+  to {
+    background-position-x: 100%;
+    background-position-y: 0%;
+  }
+}
+
+body {
+	/*.animation(backgroundmove, 160s, 0, linear)*/
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(../fonts/open-sans.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto Slab Light'), local('RobotoSlab-Light'), url(../fonts/roboto-slab-light.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url(../fonts/roboto-slab.woff) format('woff');
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Roboto slab";
+	font-weight: 300;
+}
+
+html, body {
+	height: 100%;
+	font-size: 12px;
+}
+
+.content.ng-enter,  {
+  -webkit-transition:0.25s ease-out all;
+  transition:0.25s ease-out all;
+  position: relative; 
+  opacity: 0;
+  top: 25px;
+}
+
+.content.ng-enter-active {
+	top: 0;
+	opacity: 1;
+}
+
+.content.ng-leave,  {
+  -webkit-transition:0.25s ease-out all;
+  transition:0.25s ease-out all;
+  position: relative; 
+  opacity: 1;
+  top: 0;
+}
+
+.content.ng-leave-active {
+	top: -25px;
+	opacity: 0;
+}
+
+body {
+	font-family: "Open Sans";
+	background: url('/img/ricepaper_v3.png') fixed;
+	color: #3E3E3E;
+	overflow-y: scroll;
+	&.pushed {
+		width: 100%;
+	}
+}
+
+#container {
+	background: rgba(255,255,255,1);
+	padding: 0 1.5em;
+	min-height: 100%;
+	height: auto !important;
+}
+
+@media screen and (max-width : 786px) {
+	#container {
+		padding: 0 1em;
+	}
+}
+
+a:link, a:active, a:visited, nav .ui.menu .item {
+	color: @darkred;
+	text-decoration: none;
+	border-bottom: 1px dashed fade(@darkred, 0%);
+	.transition (all 500ms);
+}
+a:hover {
+	color: @darkred;
+	border-bottom: 1px dashed fade(@darkred, 100%);
+	.transition (all 500ms);
+}
+
+code {
+	width: inherit;
+	overflow-wrap: break-word;
+}
+
+.masthead {
+	a:link, a:hover, a:active, a:visited {
+		color: inherit;
+		border: none;
+	}
+	font-size: 2.5em;
+	margin-bottom: 0;
+	small {
+		font-size: .5em;
+	}
+}
+
+body {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+img {
+	width: 100%;
+}
+
+.ui.menu {
+	.box-shadow(none);
+}
+
+aside {
+	h3 {
+		margin-top: 1em;
+		font-size: 1.7em;
+	}
+}
+
+.face-container {
+	text-align: center;
+}
+
+img.face {
+	.border-radius(150px);
+	width: 150px;
+	max-width: 100%;
+}
+
+.ui.content > .column {
+	margin-top: -1em;
+}
+
+.content {
+	font-size: 14px;
+	h2 {
+		a {
+			color: inherit;
+			text-decoration: inherit;
+		}
+		font-size: 1.7em;
+		margin-bottom: 10px;
+		time {
+			font-size: .75em;
+			font-family: 'Open Sans', sans-serif;
+			color: rgb(153, 153, 153);
+		}
+	}
+}
+
+
+@import 'nav';
