@@ -2,6 +2,7 @@
 require(['Routes'], function(AppRoutes) {
 	React.renderComponent(
 		AppRoutes(null),
-		document.body
+		document.body, function() {
+		}
 	);
 })

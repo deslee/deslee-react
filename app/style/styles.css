@@ -6411,6 +6411,9 @@ img.face {
   font-family: 'Open Sans', sans-serif;
   color: #999999;
 }
+.renderable .icon {
+  font-size: 10px;
+}
 @media screen and (max-width: 767px) {
   .hide.on.mobile {
     display: none;

@@ -4,7 +4,9 @@ define(['./Post', 'bower/react-router/dist/react-router'], function(Post, Router
 		mixins: [ReactFireMixin],
 		componentWillMount: function() {
 			this.isRemoved = false;
-			this.bindAsObject(new Firebase("https://deslee-me.firebaseio.com/pages").child(this.props.params.pageSlug), 'post');
+			this.bindAsObject(new Firebase("https://deslee-me.firebaseio.com/pages"), 'posts');
+		},
+		componentWillUnmount: function() {
 		},
 		edited: function(id) {
 			this.firebaseRefs.post.update(this.state.post);
@@ -17,16 +19,12 @@ define(['./Post', 'bower/react-router/dist/react-router'], function(Post, Router
 		render: function() {
 			var self = this;
 			var post = null;
-
-			console.log(this.state);
-			if (this.state && this.state.post !== undefined) {
-				if (this.state.post == null) {
-					console.log('replacing');
-					if (this.isRemoved == false) {
-						Router.replaceWith('/error/404');
-					}
+			if (this.state && this.state.posts !== undefined) {
+				var data = this.state.posts[this.props.params.pageSlug];
+				if (!data) {
+					Router.replaceWith('/error/404');
 				} else {
-					post = Post({id: this.props.params.pageSlug, data: this.state.post, onDeleted: this.deleted, onEdited: this.edited});
+					post = Post({id: this.props.params.pageSlug, data: data, onDeleted: this.deleted, onEdited: this.edited});
 				}
 			}
 

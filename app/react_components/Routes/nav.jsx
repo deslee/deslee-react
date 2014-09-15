@@ -13,6 +13,22 @@ define([
 	})
 
 	return React.createClass({
+		componentDidMount: function() {
+			var sidebar;
+			$('.navigation.button').click(function(e) {
+			    sidebar = $('.ui.navigation.sidebar').sidebar('toggle');
+			    e.stopPropagation();
+			  })
+
+			  $('body').click(function(e) {
+			    var targets = $(e.target).parents();
+			    if (e.clientX > 200 && sidebar && sidebar.sidebar('is open')) {
+			      if (targets.index($('button.navigation')) == -1) {
+			        sidebar.sidebar('hide');
+			      }
+			    }
+			  });
+		},
 		render: function() {
 			var socialLinks = <span className="socialLinks">
 				<a href="//facebook.com/desmondl" className="item"><i className="facebook icon"></i> Facebook</a>

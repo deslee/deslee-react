@@ -2,7 +2,7 @@ define(['./Post'], function(Post) {
 	var Blog = React.createClass({displayName: 'Blog',
 		mixins: [ReactFireMixin],
 		componentWillMount: function() {
-			this.bindAsObject(new Firebase("https://deslee-me.firebaseio.com/blog"), 'blog');
+			this.bindAsObject(new Firebase("https://deslee-me.firebaseio.com/pages"), 'blog');
 		},
 		submit: function() {
 			this.firebaseRefs.blog.child(Math.floor(Math.random()*1000000)).set(
@@ -27,6 +27,9 @@ define(['./Post'], function(Post) {
 			if (this.state && this.state.blog) {
 				for (var id in this.state.blog) {
 					var data = this.state.blog[id];
+					if (data.type==='page') {
+						continue;
+					}
 					posts[id] = Post({id: id, data: data, onDeleted: this.deleted, onEdited: this.edited})
 				}
 			}
