@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
-require(['Blog/Blog'], function(Blog) {
+require(['Routes'], function(AppRoutes) {
 	React.renderComponent(
-		Blog(null),
-	document.getElementById('react_blog')
+		AppRoutes(null),
+		document.body
 	);
 })

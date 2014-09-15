@@ -1,6 +1,6 @@
-require(['Blog/Blog'], function(Blog) {
+require(['Routes'], function(AppRoutes) {
 	React.renderComponent(
-		<Blog />,
-	document.getElementById('react_blog')
+		<AppRoutes />,
+		document.body
 	);
 })

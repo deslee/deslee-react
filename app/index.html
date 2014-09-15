@@ -24,14 +24,15 @@
   <script src="style/semantic/modules/sidebar.js"></script>
   <script src="style/semantic/modules/behavior/form.js"></script>
 
-  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.css" />
 	<link rel="stylesheet" href="style/styles.css" />
   <script src="vendor/require.js"></script>
   <script>
     require.config({
       baseUrl: "./",
       paths: {
-        'Blog': 'react_components/Blog'
+        'Dynamic': 'react_components/Dynamic',
+        'Routes': 'react_components/Routes',
+        'bower': 'bower_components',
       },
       waitSeconds: 15
     });
@@ -40,15 +41,15 @@
 </head>
 
 <body>
-    <button class="navigation ui small basic button hide on desktop">
-      <i class="icon list layout"></i> Nav
-    </button>
     <div id="container">&nbsp;
         <h1 class="masthead">
           <a href="/">Desmond Lee</a> <small>Developer / Dallas</small>
         </h1>
 
         <nav>
+          <button class="navigation ui small basic button hide on desktop">
+            <i class="icon list layout"></i> Nav
+          </button>
           <div class="ui menu hide on mobile">
             <a href="/" class="item"><i class="home icon"></i> Home</a>
             <a href="/about" class="item"><i class="info letter icon"></i> About</a>
@@ -95,7 +96,6 @@
     </div>
 
     <script>
-    console.log($);
       var sidebar;
       $('.navigation.button').click(function(e) {
         sidebar = $('.ui.navigation.sidebar').sidebar('toggle');

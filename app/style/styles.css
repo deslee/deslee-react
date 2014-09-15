@@ -6385,15 +6385,10 @@ aside h3 {
   font-size: 1.7em;
 }
 .face-container {
-  text-align: center;
+  text-align: left;
 }
 img.face {
-  -webkit-border-radius: 150px;
-  -moz-border-radius: 150px;
-  border-radius: 150px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
+  /*.border-radius(150px);*/
   width: 150px;
   max-width: 100%;
 }
@@ -6442,4 +6437,7 @@ img.face {
   position: fixed;
   top: 1em;
   right: 1em;
+}
+nav .ui.menu.hide.on.mobile .item:first-child {
+  padding-left: 0;
 }
