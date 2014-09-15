@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
-define(['./Post', 'bower/react-router/dist/react-router'], function(Post, Router) {
+define(['./Post', 'bower/react-router/dist/react-router', 'Routes/notFound'], 
+	function(Post, Router, NotFound) {
 	return React.createClass({
 		mixins: [ReactFireMixin],
 		componentWillMount: function() {
@@ -9,12 +10,23 @@ define(['./Post', 'bower/react-router/dist/react-router'], function(Post, Router
 		componentWillUnmount: function() {
 		},
 		edited: function(id) {
-			this.firebaseRefs.post.update(this.state.post);
-			//this.firebaseRefs.blog.update(updateData);
+			var slug = this.props.params.pageSlug;
+			var data = this.state.posts[slug];
+			this.firebaseRefs.posts.child(slug).update(data);
 		},
 		deleted: function(id) {
-			this.isRemoved = true;
-			this.firebaseRefs.post.remove();
+			var slug = this.props.params.pageSlug;
+			var data = this.state.posts[slug];
+			this.firebaseRefs.posts.child(slug).remove();
+		},
+		create: function() {
+			var slug = this.props.params.pageSlug;
+			this.firebaseRefs.posts.child(slug).set(
+			{
+				title: slug,
+				published: true,
+				text: "Hello World"
+			});	
 		},
 		render: function() {
 			var self = this;
@@ -22,7 +34,13 @@ define(['./Post', 'bower/react-router/dist/react-router'], function(Post, Router
 			if (this.state && this.state.posts !== undefined) {
 				var data = this.state.posts[this.props.params.pageSlug];
 				if (!data) {
-					Router.replaceWith('/error/404');
+					post = React.DOM.div(null, 
+						NotFound(null), 
+						
+					React.DOM.div({className: "field"}, 
+						React.DOM.button({className: "ui basic button", type: "button", onClick: this.create}, "Add new")
+					)
+					)
 				} else {
 					post = Post({id: this.props.params.pageSlug, data: data, onDeleted: this.deleted, onEdited: this.edited});
 				}

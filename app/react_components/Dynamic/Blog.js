@@ -36,12 +36,7 @@ define(['./Post'], function(Post) {
 			}
 
 			return React.DOM.div(null, 
-				posts, 
- 				React.DOM.p(null, 
-				React.DOM.div({className: "field"}, 
-					React.DOM.button({className: "ui basic button", type: "button", onClick: this.submit}, "Add new")
-				)
-				)
+				posts
 			)
 		}
 	});

@@ -36,11 +36,6 @@ define(['./Post'], function(Post) {
 
 			return <div>
 				{posts}
- 				<p>
-				<div className="field">
-					<button className="ui basic button" type="button" onClick={this.submit}>Add new</button>
-				</div>
-				</p>
 			</div>
 		}
 	});
