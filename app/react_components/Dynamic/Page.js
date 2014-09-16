@@ -4,7 +4,7 @@ define(['./Post', 'bower/react-router/dist/react-router', 'Routes/notFound'],
 	return React.createClass({
 		mixins: [ReactFireMixin],
 		componentWillMount: function() {
-			var ref = new Firebase(window.des_globals.ref + "pages");
+			var ref = new Firebase(window.des_globals.ref + "posts");
 			this.isRemoved = false;
 			this.bindAsObject(ref, 'posts');
 		},

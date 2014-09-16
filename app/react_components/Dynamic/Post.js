@@ -53,12 +53,11 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 
 			var text = converter.makeHtml(data.text);
 
-			return 	React.DOM.article(null, 
+			return 	React.DOM.article({className: "post"}, 
 				React.DOM.form({className: "ui form", onSubmit: this.back}, 
 					React.DOM.div({className: "field"}, React.DOM.input({ref: "title", onChange: this.changed, type: "text", placeholder: "Title"})), 
 					React.DOM.div({className: "field"}, React.DOM.textarea({ref: "text", onChange: this.changed, type: "text", placeholder: "Text"})), 
-					React.DOM.div({className: "field"}, React.DOM.button({onClick: this.delete, className: "ui basic button", type: "button"}, "Delete entry")), 
-					React.DOM.div({className: "field"}, React.DOM.input({type: "submit", className: "ui basic button", value: "Back"}))
+					React.DOM.div({className: "field"}, React.DOM.input({type: "submit", className: "ui basic button", value: "Back"}), " ", React.DOM.button({onClick: this.delete, className: "ui red delete button", type: "button"}, "Delete entry"))
 				)
 		      )
 		}
