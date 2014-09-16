@@ -16,7 +16,10 @@ gulp.task('helloworld', function() {
 gulp.task('serve', function() {
 	connect.server({
 		root: ['./app'],
-		livereload: true
+		livereload: true,
+		middleware: function(connect, opt) {
+			return [require('connect-history-api-fallback')]
+		}
 	});
 
 });

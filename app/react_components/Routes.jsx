@@ -14,7 +14,7 @@ define([
 	var AppRoutes = React.createClass({
 		render: function() {
 
-			return <Routes location="hash">
+			return <Routes location="history">
 				<Route name="app" path="/" handler={IndexHandler}>
 					<DefaultRoute handler={BlogHandler} />
 					<Route name="page" path="/:pageSlug" handler={PageHandler} />
