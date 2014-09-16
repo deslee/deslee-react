@@ -1,8 +1,8 @@
 /** @jsx React.DOM */
-define(['./Post', 'bower/react-router/dist/react-router', 'Routes/notFound'], 
-	function(Post, Router, NotFound) {
+define(['./Post', 'bower/react-router/dist/react-router', 'Routes/notFound', 'Mixins/authenticationKnower'], 
+	function(Post, Router, NotFound, authenticationKnower) {
 	return React.createClass({
-		mixins: [ReactFireMixin],
+		mixins: [ReactFireMixin, authenticationKnower],
 		componentWillMount: function() {
 			var ref = new Firebase(window.des_globals.ref + "posts");
 			this.isRemoved = false;
@@ -32,6 +32,13 @@ define(['./Post', 'bower/react-router/dist/react-router', 'Routes/notFound'],
 		render: function() {
 			var self = this;
 			var post = null;
+
+
+			var editButtonClasses = {
+				'ui basic button': true,
+				'hidden': !this.state.authenticated
+			}
+
 			if (this.state && this.state.posts !== undefined) {
 				var data = this.state.posts[this.props.params.pageSlug];
 				if (!data) {
@@ -39,7 +46,7 @@ define(['./Post', 'bower/react-router/dist/react-router', 'Routes/notFound'],
 						NotFound(null), 
 						
 					React.DOM.div({className: "field"}, 
-						React.DOM.button({className: "ui basic button", type: "button", onClick: this.create}, "Add new")
+						React.DOM.button({className: React.addons.classSet(editButtonClasses), type: "button", onClick: this.create}, "Add new")
 					)
 					)
 				} else {

@@ -1,8 +1,9 @@
 /** @jsx React.DOM */
 
-define(['bower/react-router/dist/react-router'], function(Router) {
+define(['bower/react-router/dist/react-router', 'Mixins/authenticationKnower'], function(Router, authenticationKnower) {
 	var converter = new Showdown.converter();
 	var DisplayPost = React.createClass({displayName: 'DisplayPost',
+		mixins: [authenticationKnower],
 		edit: function(e) {
 			e.preventDefault();
 			this.props.onEdit()
@@ -15,13 +16,20 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 				var data = this.props.data;
 
 				var text = converter.makeHtml(data.text);
-				var href = '/'+this.props.id
+				var href = '/'+this.props.id;
+
+				var editButtonClasses = {
+					'ui basic button': true,
+					'hidden': !this.state.authenticated
+				}
 
 				return React.DOM.article(null, 
 			      React.DOM.h2(null, React.DOM.a({href: href, onClick: this.routeToPost}, data.title)), 
 			      React.DOM.div({dangerouslySetInnerHTML: {__html: text}}), 
 
-			 		React.DOM.div({className: "field"}, React.DOM.button({className: "ui basic button", type: "button", onClick: this.edit}, "Edit"))
+			 		React.DOM.div({className: "field"}, 
+			 			React.DOM.button({className: React.addons.classSet(editButtonClasses), type: "button", onClick: this.edit}, "Edit")
+			 		)
 			    )
 		}
 	})
