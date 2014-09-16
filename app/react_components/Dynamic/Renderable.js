@@ -1,14 +1,8 @@
 /** @jsx React.DOM */
-define(['bower/react-router/dist/react-router', 'Mixins/broadcastListener'], function(Router, broadcastListenerMixin) {
+define(['bower/react-router/dist/react-router', 'Mixins/authenticationKnower'], function(Router, authenticationKnower) {
 	var converter = new Showdown.converter();
 	var Renderable = React.createClass({displayName: 'Renderable',
-		mixins: [ReactFireMixin, broadcastListenerMixin],
-		getInitialState: function() {
-			return {authenticated: false};
-		},
-		on_authenticated: function() {
-			this.setState({authenticated: true});
-		},
+		mixins: [ReactFireMixin, authenticationKnower],
 		componentWillMount: function() {
 			var ref = new Firebase(window.des_globals.ref + "renderableComponents");
 			this.bindAsObject(ref.child(this.props.path), 'renderable');
@@ -31,7 +25,7 @@ define(['bower/react-router/dist/react-router', 'Mixins/broadcastListener'], fun
 				return React.DOM.span({className: "renderable"}, 
 					React.DOM.span({dangerouslySetInnerHTML: {__html: text}}), 
 					React.DOM.span(null, 
-					React.DOM.i({className: React.addons.classSet(editIconClasses)})
+					React.DOM.i({onClick: this.edit, className: React.addons.classSet(editIconClasses)})
 					)
 				)
 		}

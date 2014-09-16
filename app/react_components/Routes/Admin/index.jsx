@@ -12,16 +12,8 @@ define(['Mixins/broadcastListener'], function(broadcastListenerMixin) {
 			var password = self.refs.password.getDOMNode().value;
 			$.ajax(des_globals.auth, {
 				data: {password: password},
-				success: function(value) {
-					new Firebase(des_globals.ref).auth(value, function(error) {
-						if (error) {
-							console.log(error);
-						}
-						else {
-							self.setState({authenticated: true});
-							des_globals.broadcast('authenticated');
-						}
-					});
+				success: function(token) {
+					des_globals.authenticateWithToken(token);
 				}, 
 				error: function(error) {
 					self.refs.password.getDOMNode().focus();

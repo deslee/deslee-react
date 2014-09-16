@@ -8,9 +8,33 @@ require(['Routes'], function(AppRoutes) {
 			this.broadcast_listeners.forEach(function(listener) {
 				listener.on_broadcast_event(event);
 			});
+		},
+		authenticated: false,
+		setAuthenticated: function(authenticated, value) {
+			console.log(value);
+			this.authenticated = authenticated;
+			window.localStorage.setItem('token', value);
+			this.broadcast('authenticated', value);
+		},
+		authenticateWithToken: function(token) {
+			var self = this;
+			new Firebase(self.ref).auth(token, function(error) {
+				if (error) {
+					console.log(error);
+					window.localStorage.removeItem('token');
+				}
+				else {
+					self.setAuthenticated(true, token);
+				}
+			});
 		}
 	};
-	new Firebase(des_globals.ref).auth('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6dHJ1ZSwidiI6MCwiZCI6eyJ1aWQiOiIxIn0sImlhdCI6MTQxMDg0MzcwMH0.9M7IWqwhkK5BxhffPgzl09Mv1vg5kOcqNj8EwqKyI8M');
+
+	var token = window.localStorage.getItem('token');
+	if (token != null) {
+		des_globals.authenticateWithToken(token);
+	}
+
 	React.renderComponent(
 		<AppRoutes />,
 		document.getElementById('des-app'), function() {
