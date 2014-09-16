@@ -1,6 +1,6 @@
-define(['Mixins/broadcastListener'], function(broadcastListenerMixin) {
+define(['Mixins/broadcastListener', 'Mixins/authenticationKnower'], function(broadcastListenerMixin, authenticationKnower) {
 	return React.createClass({
-		mixins: [ReactFireMixin, broadcastListenerMixin],
+		mixins: [ReactFireMixin, authenticationKnower],
 		getInitialState: function() {
 			return {renderables: {}}
 		},
@@ -58,26 +58,33 @@ define(['Mixins/broadcastListener'], function(broadcastListenerMixin) {
 			if (this.state.renderables[this.state.key]) {
 				var converter = new Showdown.converter();
 				text = converter.makeHtml(this.state.renderables[this.state.key].text);
+			}	      
+
+			var editInterfaceClass = 'hidden', loginFormClass='';
+			if (this.state.authenticated) {
+				editInterfaceClass = '';
+				loginFormClass = 'hidden';
 			}
 
-	      
-
 			return <div>
-				<form className="ui form" onSubmit={this.login}>
+				<form className="ui form" onSubmit={this.login} className={loginFormClass}>
 					<div className="field"><input ref="password" type="password" placeholder="password" /></div>
 					<button type="submit">Submit</button>
 				</form>
 
 
-				<select onChange={this.setRenderable}>
-					<option value="">Select a renderable</option>
-					{menuItems}
-				</select>
-				<form>
-					<textarea onChange={this.changed} ref="content"></textarea>
-				</form>
+				<div className={editInterfaceClass}>
+					<select onChange={this.setRenderable}>
+						<option value="">Select a renderable</option>
+						{menuItems}
+					</select>
 
-				<div dangerouslySetInnerHTML={{__html: text}}></div>
+					<form>
+						<textarea onChange={this.changed} ref="content"></textarea>
+					</form>
+
+					<div dangerouslySetInnerHTML={{__html: text}}></div>
+				</div>
 			</div>
 		}
 	});

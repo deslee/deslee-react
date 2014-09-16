@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
-define(['Mixins/broadcastListener'], function(broadcastListenerMixin) {
+define(['Mixins/broadcastListener', 'Mixins/authenticationKnower'], function(broadcastListenerMixin, authenticationKnower) {
 	return React.createClass({
-		mixins: [ReactFireMixin, broadcastListenerMixin],
+		mixins: [ReactFireMixin, authenticationKnower],
 		getInitialState: function() {
 			return {renderables: {}}
 		},
@@ -59,26 +59,33 @@ define(['Mixins/broadcastListener'], function(broadcastListenerMixin) {
 			if (this.state.renderables[this.state.key]) {
 				var converter = new Showdown.converter();
 				text = converter.makeHtml(this.state.renderables[this.state.key].text);
+			}	      
+
+			var editInterfaceClass = 'hidden', loginFormClass='';
+			if (this.state.authenticated) {
+				editInterfaceClass = '';
+				loginFormClass = 'hidden';
 			}
 
-	      
-
 			return React.DOM.div(null, 
-				React.DOM.form({className: "ui form", onSubmit: this.login}, 
+				React.DOM.form({className: "ui form", onSubmit: this.login, className: loginFormClass}, 
 					React.DOM.div({className: "field"}, React.DOM.input({ref: "password", type: "password", placeholder: "password"})), 
 					React.DOM.button({type: "submit"}, "Submit")
 				), 
 
 
-				React.DOM.select({onChange: this.setRenderable}, 
-					React.DOM.option({value: ""}, "Select a renderable"), 
-					menuItems
-				), 
-				React.DOM.form(null, 
-					React.DOM.textarea({onChange: this.changed, ref: "content"})
-				), 
+				React.DOM.div({className: editInterfaceClass}, 
+					React.DOM.select({onChange: this.setRenderable}, 
+						React.DOM.option({value: ""}, "Select a renderable"), 
+						menuItems
+					), 
 
-				React.DOM.div({dangerouslySetInnerHTML: {__html: text}})
+					React.DOM.form(null, 
+						React.DOM.textarea({onChange: this.changed, ref: "content"})
+					), 
+
+					React.DOM.div({dangerouslySetInnerHTML: {__html: text}})
+				)
 			)
 		}
 	});
