@@ -1,4 +1,5 @@
 /** @jsx React.DOM */
+
 define(['bower/react-router/dist/react-router'], function(Router) {
 	var converter = new Showdown.converter();
 	var DisplayPost = React.createClass({
@@ -57,7 +58,7 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 					<div className="field"><input ref="title" onChange={this.changed} type="text" placeholder="Title" /></div>
 					<div className="field"><textarea ref="text" onChange={this.changed} type="text" placeholder="Text"></textarea></div>
 					<div className="field"><button onClick={this.delete} className="ui basic button" type="button" >Delete entry</button></div>
-					<div className="field"><input type="submit" className="ui basic button" value="Submit" /></div>
+					<div className="field"><input type="submit" className="ui basic button" value="Back" /></div>
 				</form>
 		      </article>
 		}

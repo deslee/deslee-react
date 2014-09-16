@@ -1,12 +1,17 @@
 define(['./main', './aside'], function(Main, Aside) {
 	return React.createClass({
 		render: function() {
-			return <div id="contentComponent">
+			var asideClasses = React.addons.classSet({
+				hidden: this.props.activeRouteHandler().props.hideSidebar
+			});
+
+			var content = <div id="contentComponent">
 				<div className="ui content stackable grid">
 					<Main activeRouteHandler={this.props.activeRouteHandler} />
-					<Aside />
+					<Aside className={asideClasses} activeRouteHandler={this.props.activeRouteHandler}/>
 				</div>
-			</div>
+			</div>;
+			return content;
 		}
 	});
 });

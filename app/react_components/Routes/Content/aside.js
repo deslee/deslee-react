@@ -2,7 +2,13 @@
 define(['Dynamic/Renderable'], function(Renderable){
 	return React.createClass({
 		render: function() {
-			return React.DOM.aside({id: "asideComponent", className: "four wide column"}, 
+			var classes = {
+				'four wide column': true
+			};
+			classes[this.props.className] = true;
+			var className = React.addons.classSet(classes);
+
+			var aside = React.DOM.aside({id: "asideComponent", className: className}, 
 			    React.DOM.div({className: "custom half block"}, 
 			      React.DOM.h3(null, "About me"), 
 			      React.DOM.div({className: "face-container"}, 
@@ -14,7 +20,9 @@ define(['Dynamic/Renderable'], function(Renderable){
 			      React.DOM.h3(null, "Info"), 
 			      Renderable({path: "info"})
 			    )
-			)
+			);
+
+			return aside;
 		}
 	});
 });

@@ -4,7 +4,8 @@ define([
 	'Dynamic/Blog',
 	'Routes/notFound',
 	'Dynamic/Page',
-], function(ReactRouter, IndexHandler, BlogHandler, NotFoundHandler, PageHandler) {
+	'Routes/Admin/index',
+], function(ReactRouter, IndexHandler, BlogHandler, NotFoundHandler, PageHandler, AdminHandler) {
 	var Routes = ReactRouter.Routes;
 	var Route = ReactRouter.Route;
 	var DefaultRoute = ReactRouter.DefaultRoute;
@@ -16,8 +17,9 @@ define([
 			return <Routes location="hash">
 				<Route name="app" path="/" handler={IndexHandler}>
 					<DefaultRoute handler={BlogHandler} />
-					<NotFoundRoute name="notFound" path='/error/404' handler={NotFoundHandler} />
 					<Route name="page" path="/:pageSlug" handler={PageHandler} />
+					<Route name="admin" path="/admin/index" handler={AdminHandler} hideSidebar />
+					<NotFoundRoute name="notFound" path='/error/404' handler={NotFoundHandler} />
 				</Route>
 			</Routes>
 		}

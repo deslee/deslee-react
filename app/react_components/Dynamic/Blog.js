@@ -3,15 +3,8 @@ define(['./Post'], function(Post) {
 	var Blog = React.createClass({displayName: 'Blog',
 		mixins: [ReactFireMixin],
 		componentWillMount: function() {
-			this.bindAsObject(new Firebase("https://deslee-me.firebaseio.com/pages"), 'blog');
-		},
-		submit: function() {
-			this.firebaseRefs.blog.child(Math.floor(Math.random()*1000000)).set(
-			{
-				title: "Hello world!",
-				published: true,
-				text: "hey there, world!"
-			});	
+			var ref = new Firebase(window.des_globals.ref + "pages");
+			this.bindAsObject(ref, 'blog');
 		},
 		edited: function(id) {
 			var updateData = {};

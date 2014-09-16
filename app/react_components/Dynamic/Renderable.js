@@ -4,8 +4,8 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 	var Renderable = React.createClass({displayName: 'Renderable',
 		mixins: [ReactFireMixin],
 		componentWillMount: function() {
-			this.bindAsObject(new Firebase("https://deslee-me.firebaseio.com/renderableComponents")
-				.child(this.props.path), 'renderable');
+			var ref = new Firebase(window.des_globals.ref + "renderableComponents");
+			this.bindAsObject(ref.child(this.props.path), 'renderable');
 		},
 		edit: function() {
 			console.log('editing');
