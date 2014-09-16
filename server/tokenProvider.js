@@ -5,10 +5,15 @@ var secret = require('./secret');
 // secret.js module.exports = 'key'
 
 var app = express();
-app.get('/', function(req,res) {
-	var tokenGenerator = new FirebaseTokenGenerator(secret);
-	var token = tokenGenerator.createToken({uid: "1"}, {admin: true});
-	res.send(token);
+app.post('/', function(req,res) {
+	var tokenGenerator = new FirebaseTokenGenerator(secret.secret);
+	if (req.body.password !== secret.password) {
+		res.send("wrong password!");
+	}
+	else {
+		var token = tokenGenerator.createToken({uid: "1"}, {admin: true});
+		res.send(token);
+	}
 });
 
 app.listen(44423);
