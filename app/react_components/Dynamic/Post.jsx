@@ -61,7 +61,9 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 			this.props.onChange();
 		},
 		delete: function() {
-			this.props.onDelete();
+			if (confirm("Are you sure?")) {
+				this.props.onDelete();
+			}
 		},
 		back: function(e) {
 			e.preventDefault();
@@ -83,7 +85,7 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 				return <div className="item" data-value={type}>{name}</div>;
 			});
 
-			return 	<article className="post">
+			return <article className="post">
 
 				<form className="ui form" onSubmit={this.back}>
 					<div className="field"><input ref="title" onChange={this.changed} type="text" placeholder="Title" /></div>

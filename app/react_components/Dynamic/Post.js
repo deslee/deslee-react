@@ -61,7 +61,9 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 			this.props.onChange();
 		},
 		delete: function() {
-			this.props.onDelete();
+			if (confirm("Are you sure?")) {
+				this.props.onDelete();
+			}
 		},
 		back: function(e) {
 			e.preventDefault();
@@ -83,7 +85,7 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 				return React.DOM.div({className: "item", 'data-value': type}, name);
 			});
 
-			return 	React.DOM.article({className: "post"}, 
+			return React.DOM.article({className: "post"}, 
 
 				React.DOM.form({className: "ui form", onSubmit: this.back}, 
 					React.DOM.div({className: "field"}, React.DOM.input({ref: "title", onChange: this.changed, type: "text", placeholder: "Title"})), 

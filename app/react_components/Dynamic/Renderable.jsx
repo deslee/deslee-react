@@ -1,8 +1,14 @@
 /** @jsx React.DOM */
-define(['bower/react-router/dist/react-router'], function(Router) {
+define(['bower/react-router/dist/react-router', 'Mixins/broadcastListener'], function(Router, broadcastListenerMixin) {
 	var converter = new Showdown.converter();
 	var Renderable = React.createClass({
-		mixins: [ReactFireMixin],
+		mixins: [ReactFireMixin, broadcastListenerMixin],
+		getInitialState: function() {
+			return {authenticated: false};
+		},
+		on_authenticated: function() {
+			this.setState({authenticated: true});
+		},
 		componentWillMount: function() {
 			var ref = new Firebase(window.des_globals.ref + "renderableComponents");
 			this.bindAsObject(ref.child(this.props.path), 'renderable');
@@ -17,8 +23,16 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 					text = renderable.format === 'markdown' ? converter.makeHtml(renderable.text) : renderable.text;
 				}
 
+				var editIconClasses = {
+					'icon edit': true,
+					'hidden': !this.state.authenticated
+				}
+
 				return <span className="renderable">
 					<span dangerouslySetInnerHTML={{__html: text}}></span>
+					<span>
+					<i className={React.addons.classSet(editIconClasses)} />
+					</span>
 				</span>
 		}
 	})

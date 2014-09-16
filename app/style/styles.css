@@ -7028,6 +7028,7 @@ img.face {
 }
 .renderable .icon {
   font-size: 10px;
+  vertical-align: super;
 }
 .hidden {
   display: none !important;

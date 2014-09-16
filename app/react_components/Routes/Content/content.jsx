@@ -1,5 +1,6 @@
-define(['./main', './aside'], function(Main, Aside) {
+define(['Mixins/broadcastListener', './main', './aside'], function(broadcastListenerMixin, Main, Aside) {
 	return React.createClass({
+		mixins: [broadcastListenerMixin],
 		render: function() {
 			var asideClasses = React.addons.classSet({
 				hidden: this.props.activeRouteHandler().props.hideSidebar
