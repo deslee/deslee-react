@@ -15,7 +15,7 @@ gulp.task('helloworld', function() {
 
 gulp.task('serve', function() {
 	connect.server({
-		root: ['./app', './'],
+		root: ['./app'],
 		livereload: true
 	});
 
