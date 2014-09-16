@@ -24,6 +24,26 @@ define(['Mixins/broadcastListener'], function(broadcastListenerMixin) {
 				type: "POST"
 			});
 		},
+
+		setRenderable: function(e) {
+			if(this.state.renderables[e.target.value]) {
+				var content = this.state.renderables[e.target.value].text;
+				this.refs.content.getDOMNode().value = content;
+			}
+
+			this.setState({key: e.target.value});
+		},
+
+		changed: function(e) {
+			var self = this;
+			var renderable = this.state.renderables[this.state.key];
+			if (renderable) {
+				renderable.text = e.target.value;
+				this.firebaseRefs.renderables.child(this.state.key).update(renderable);
+				this.forceUpdate();
+			}
+		},
+
 		render: function() {
 			var renderables = this.state.renderables;
 
@@ -34,6 +54,14 @@ define(['Mixins/broadcastListener'], function(broadcastListenerMixin) {
 
 			var prompt = this.state.selectedRenderable ? this.state.selectedRenderable : 'Select a renderable';
 
+			var text;
+			if (this.state.renderables[this.state.key]) {
+				var converter = new Showdown.converter();
+				text = converter.makeHtml(this.state.renderables[this.state.key].text);
+			}
+
+	      
+
 			return <div>
 				<form className="ui form" onSubmit={this.login}>
 					<div className="field"><input ref="password" type="password" placeholder="password" /></div>
@@ -41,9 +69,15 @@ define(['Mixins/broadcastListener'], function(broadcastListenerMixin) {
 				</form>
 
 
-				<select>
+				<select onChange={this.setRenderable}>
+					<option value="">Select a renderable</option>
 					{menuItems}
 				</select>
+				<form>
+					<textarea onChange={this.changed} ref="content"></textarea>
+				</form>
+
+				<div dangerouslySetInnerHTML={{__html: text}}></div>
 			</div>
 		}
 	});
