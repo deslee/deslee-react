@@ -40,18 +40,6 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 			this.fields.forEach(function(field) {
 				this.refs[field].getDOMNode().value = this.props.data[field];
 			}.bind(this));
-
-			console.log(this.refs.dropdown.getDOMNode());
-			var self = this;
-			$(this.refs.dropdown.getDOMNode()).dropdown({
-				onChange: function(value) {
-					self.props.data.type = value;
-					self.setState({
-						type: self.props.data.type
-					});
-					self.props.onChange();
-				}
-			});
 		},
 		changed: function() {
 			var data = this.props.data;
@@ -69,6 +57,17 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 			e.preventDefault();
 			this.props.onBack();
 		},
+		typeChanged: function(e) {
+			var self=this,
+				value = e.target.value;
+				
+			console.log(value);
+			self.props.data.type = value;
+			self.setState({
+				type: self.props.data.type
+			});
+			self.props.onChange();
+		},
 		render: function() {
 			var data = this.props.data;
 
@@ -82,7 +81,7 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 			var default_text = types[this.state.type];
 			var menuItems = Object.keys(types).map(function(type) {
 				var name = types[type];
-				return <div className="item" data-value={type}>{name}</div>;
+				return <option value={type}>{name}</option>;
 			});
 
 			return <article className="post">
@@ -91,14 +90,11 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 					<div className="field"><input ref="title" onChange={this.changed} type="text" placeholder="Title" /></div>
 					<div className="field"><textarea ref="text" onChange={this.changed} type="text" placeholder="Text"></textarea></div>
 
-					<div ref="dropdown" className="ui selection dropdown">
-						<input type="hidden" name="gender" />
-						<div className="default text">{default_text}</div>
-						<i className="dropdown icon"></i>
-						<div className="menu">
-							{menuItems}
-						</div>
-					</div>
+					
+					<select onChange={this.typeChanged}>
+						{menuItems}
+					</select>
+
 					<div className="field"><input type="submit" className="ui basic button" value="Back" /> <button onClick={this.delete} className="ui red delete button" type="button" >Delete entry</button></div>
 				</form>
 		    </article>

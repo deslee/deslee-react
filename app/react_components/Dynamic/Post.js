@@ -40,18 +40,6 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 			this.fields.forEach(function(field) {
 				this.refs[field].getDOMNode().value = this.props.data[field];
 			}.bind(this));
-
-			console.log(this.refs.dropdown.getDOMNode());
-			var self = this;
-			$(this.refs.dropdown.getDOMNode()).dropdown({
-				onChange: function(value) {
-					self.props.data.type = value;
-					self.setState({
-						type: self.props.data.type
-					});
-					self.props.onChange();
-				}
-			});
 		},
 		changed: function() {
 			var data = this.props.data;
@@ -69,6 +57,17 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 			e.preventDefault();
 			this.props.onBack();
 		},
+		typeChanged: function(e) {
+			var self=this,
+				value = e.target.value;
+				
+			console.log(value);
+			self.props.data.type = value;
+			self.setState({
+				type: self.props.data.type
+			});
+			self.props.onChange();
+		},
 		render: function() {
 			var data = this.props.data;
 
@@ -82,7 +81,7 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 			var default_text = types[this.state.type];
 			var menuItems = Object.keys(types).map(function(type) {
 				var name = types[type];
-				return React.DOM.div({className: "item", 'data-value': type}, name);
+				return React.DOM.option({value: type}, name);
 			});
 
 			return React.DOM.article({className: "post"}, 
@@ -91,14 +90,11 @@ define(['bower/react-router/dist/react-router'], function(Router) {
 					React.DOM.div({className: "field"}, React.DOM.input({ref: "title", onChange: this.changed, type: "text", placeholder: "Title"})), 
 					React.DOM.div({className: "field"}, React.DOM.textarea({ref: "text", onChange: this.changed, type: "text", placeholder: "Text"})), 
 
-					React.DOM.div({ref: "dropdown", className: "ui selection dropdown"}, 
-						React.DOM.input({type: "hidden", name: "gender"}), 
-						React.DOM.div({className: "default text"}, default_text), 
-						React.DOM.i({className: "dropdown icon"}), 
-						React.DOM.div({className: "menu"}, 
-							menuItems
-						)
+					
+					React.DOM.select({onChange: this.typeChanged}, 
+						menuItems
 					), 
+
 					React.DOM.div({className: "field"}, React.DOM.input({type: "submit", className: "ui basic button", value: "Back"}), " ", React.DOM.button({onClick: this.delete, className: "ui red delete button", type: "button"}, "Delete entry"))
 				)
 		    )

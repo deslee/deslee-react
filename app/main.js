@@ -12,7 +12,6 @@ require(['Routes'], function(AppRoutes) {
 		},
 		authenticated: false,
 		setAuthenticated: function(authenticated, value) {
-			console.log(value);
 			this.authenticated = authenticated;
 			window.localStorage.setItem('token', value);
 			this.broadcast('authenticated', value);
