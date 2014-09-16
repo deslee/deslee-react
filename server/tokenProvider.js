@@ -2,6 +2,7 @@ var express = require('express');
 var FirebaseTokenGenerator = require('firebase-token-generator');
 var secret = require('./secret');
 
+// secret.js module.exports = 'key'
 
 var app = express();
 app.get('/', function(req,res) {
@@ -10,4 +11,4 @@ app.get('/', function(req,res) {
 	res.send(token);
 });
 
-app.listen(3000);
+app.listen(44423);
