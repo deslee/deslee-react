@@ -1,7 +1,6 @@
 gulp = require 'gulp'
 browserify = require 'gulp-browserify'
 rename = require 'gulp-rename'
-connect = require 'gulp-connect'
 webserver = require 'gulp-webserver'
 
 gulp.task 'browserify', () ->
@@ -21,7 +20,6 @@ gulp.task 'dist', () ->
 gulp.task 'serve', () -> 
 	gulp.src ['./dist']
 		.pipe webserver
-			livereload: true
 			fallback: 'index.html'
 
 gulp.task 'watch', () ->
