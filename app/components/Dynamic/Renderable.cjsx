@@ -2,6 +2,7 @@ React = require 'react'
 ReactFireMixin = require 'reactfire'
 
 markdown = require 'markdown'
+globals = require '../../globals.coffee'
 
 module.exports = React.createClass
 	getInitialState: () ->
@@ -12,7 +13,7 @@ module.exports = React.createClass
 	mixins: [ReactFireMixin]
 
 	componentWillMount: () ->
-		@bindAsObject new Firebase("#{des_globals.ref}renderableComponents").child(@props.path), "renderable"
+		@bindAsObject new Firebase("#{globals.ref}/renderableComponents").child(@props.path), "renderable"
 	
 	render: () ->
 		format = @state.renderable.format;
