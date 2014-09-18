@@ -10,7 +10,12 @@
 </head>
 
 <body>
-	<div id="des-app" data-auth="https://auth.deslee.me"  data-firebaseref="https://deslee-me.firebaseio.com/dev"></div>
+	<!-- @if NODE_ENV!='production' -->
+	<div id="des-app" data-auth="http://localhost:44423"  data-firebaseref="https://deslee-me.firebaseio.com/dev"></div>
+	<!-- @endif -->
+	<!-- @if NODE_ENV='production' -->
+	<div id="des-app" data-auth="https://auth.deslee.me"  data-firebaseref="https://deslee-me.firebaseio.com"></div>
+	<!-- @endif -->
 
 	<script src="vendor.js"></script>
 	<script src="app.js"></script>

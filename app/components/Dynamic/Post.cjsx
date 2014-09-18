@@ -23,6 +23,7 @@ module.exports = React.createClass
 		@props.onEdit(@state.post) if @props.onEdit
 
 	render: ->
+		console.log 'render'
 		edit_button = undefined
 
 		if @state.authenticated and @props.isEditing is false

@@ -17,8 +17,10 @@
     "firebase-token-generator": "^2.0.0",
     "gulp": "^3.8.8",
     "gulp-browserify": "^0.5.0",
+    "gulp-preprocess": "^1.1.1",
     "gulp-rename": "^1.2.0",
-    "gulp-webserver": "^0.8.1"
+    "gulp-webserver": "^0.8.1",
+    "process": "^0.8.0"
   },
   "dependencies": {
     "firebase": "^1.0.21",

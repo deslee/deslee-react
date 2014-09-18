@@ -2,6 +2,8 @@ gulp = require 'gulp'
 browserify = require 'gulp-browserify'
 rename = require 'gulp-rename'
 webserver = require 'gulp-webserver'
+preprocess = require('gulp-preprocess');
+process = require('process')
 
 external_libraries = ['jquery', 'firebase', 'markdown', 'react', 'react/addons', 'react-router', 'reactfire']
 
@@ -30,8 +32,12 @@ gulp.task 'browserify:app', () ->
 		.pipe gulp.dest "./dist"
 
 gulp.task 'dist', () -> 
+	console.log process.env.NODE_ENV
 	gulp.src './app/index.html'
-	.pipe gulp.dest './dist'
+		.pipe preprocess
+			context:
+				NODE_ENV: process.env.NODE_ENV
+		.pipe gulp.dest './dist'
 
 gulp.task 'serve', () -> 
 	gulp.src ['./dist']
