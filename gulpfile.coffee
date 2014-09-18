@@ -3,7 +3,7 @@ browserify = require 'gulp-browserify'
 rename = require 'gulp-rename'
 webserver = require 'gulp-webserver'
 
-external_libraries = ['firebase', 'markdown', 'react', 'react/addons', 'react-router', 'reactfire']
+external_libraries = ['jquery', 'firebase', 'markdown', 'react', 'react/addons', 'react-router', 'reactfire']
 
 gulp.task 'browserify:vendor', () ->
 	gulp.src "./app/noop.js", read: false

@@ -1,36 +1,37 @@
 Router = require 'react-router'
 ReactFireMixin = require 'reactfire'
 React = require 'react'
-authenticationKnower = require '../Mixins/authenticationKnower.cjsx'
 globals = require('../../globals.coffee')
+EditPost = require './EditPost.cjsx'
 
-Page = (endpoint) ->
+module.exports = (endpoint) ->
 	React.createClass
 		mixins: [ReactFireMixin]
 		getInitialState: ->
-			post: 
-				title: 'Loading'
-				text: 'Loading'
+			edit: false
 
-		componentWillMount: ->
-			ref = new Firebase("#{globals.ref}/#{endpoint}").child(@props.params.slug)
-			@bindAsObject ref, 'post'
+		edit: (post) ->
+			@setState({edit: post})
 
-		create: ->
-			@firebaseRefs['post'].set
-				title: @props.params.slug
-				published: false
-				text: "Hello world"
+		edit_close: ->
+			@setState({edit: false})
 
 		render: ->
 			Post = require './Post.cjsx'
 			NotFound = require '../Routes/notFound.cjsx'
-			if not @state.post
-				return <div>
-					<NotFound />
-					<button type="button" onClick={@create}>Add new</button>
-				</div>
 
-			return <Post id={@props.params.slug} data={@state.post} type={endpoint} ></Post>
+			editPost = undefined
+			if @state.edit != false 
+				return <EditPost 
+					id={@props.params.slug}
+					type={endpoint}
+					data={@state.edit}
+					onDone={@edit_close}
+				/>
 
-module.exports = Page
+			return <Post 
+					id={@props.params.slug} 
+					type={endpoint}
+					onEdit={@edit}
+					isEditing={@state.edit}
+				/>

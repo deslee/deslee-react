@@ -1,13 +1,13 @@
 globals = require '../../globals.coffee'
 
 module.exports =
-	componentDidMount: () =>
+	componentDidMount: () ->
 		globals.broadcast_listeners.push(this);
 
-	componentWillUnmount: () =>
+	componentWillUnmount: () ->
 		idx = globals.broadcast_listeners.indexOf(this);
 		globals.broadcast_listeners.splice(idx, 1) if idx > -1
 
-	on_broadcast_event: (event, obj) => 
+	on_broadcast_event: (event, obj) -> 
 		fun = this['on_' + event]
 		fun.call(this, obj) if typeof(fun) == 'function'

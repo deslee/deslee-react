@@ -13,10 +13,13 @@ module.exports = React.createClass
 		ref = new Firebase("#{globals.ref}/blog")
 		@bindAsObject ref, 'posts'
 
+	changed: (key) ->
+		@firebaseRefs.posts.child(key).update @state.posts[key]
+
 	render: ->
 		Post = require './Post.cjsx'
 		posts = Object.keys(@state.posts).map (key) =>
-			return <Post id={key} data={@state.posts[key]} type="blog" />
+			return <Post onChanged={@changed} id={key} data={@state.posts[key]} type="blog" />
 			
 		return <div>
 			{posts}
