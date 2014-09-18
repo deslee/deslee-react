@@ -1,9 +1,10 @@
 broadcastListenerMixin = require('./broadcastListener.cjsx')
+globals = require('../../globals.coffee')
 
 module.exports =
 	mixins: [broadcastListenerMixin]
 	getInitialState: ->
-		authenticated: window.des_globals.authenticated
+		authenticated: globals.authenticated
 
 	on_authenticated: ->
 		@setState authenticated: true

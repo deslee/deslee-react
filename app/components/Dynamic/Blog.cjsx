@@ -17,6 +17,7 @@ module.exports = React.createClass
 		Post = require './Post.cjsx'
 		posts = Object.keys(@state.posts).map (key) =>
 			return <Post id={key} data={@state.posts[key]} type="blog" />
+			
 		return <div>
 			{posts}
 		</div>
